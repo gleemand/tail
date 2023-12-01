@@ -1,6 +1,15 @@
 <?php
 
+$password = 'password';
 $path = 'var/log/';
+
+if ($_SERVER['PHP_AUTH_USER'] != $password || $_SERVER['PHP_AUTH_PW'] != $password) {
+    header('WWW-Authenticate: Basic realm="realm"');
+    header('HTTP/1.0 401 Unauthorized');
+    
+    die();
+}
+
 $dir = array_diff(scandir($path), ['..', '.']);
 $files = [];
 
